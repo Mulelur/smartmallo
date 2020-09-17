@@ -1,0 +1,569 @@
+{% extends 'base.html' %}
+{%load static %}
+{% block content %}
+<div id="content" class="site-content" tabindex="-1">
+	<div class="container tondy-push">
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main">
+				<div class="home-v3-slider" >
+					<!-- ========================================== SECTION – HERO : END========================================= -->
+
+					<div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
+
+						<div class="item" style="background-image: url({% static 'image/jbl.png' %});">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="caption vertical-center text-left">
+											<div class="hero-subtitle-v2 fadeInDown-1">
+												shop to get what you loves
+											</div>
+
+											<div class="">
+												Timepieces that make a statement up to <strong>40% Off</strong>
+											 </div>
+
+											<div class="hero-action-btn fadeInDown-3">
+												<a href="{% url 'shop-list' %}" class="big le-button ">Start Buying</a>
+											</div>
+										</div><!-- /.caption -->
+									</div><!-- /.col -->
+								</div>
+							</div><!-- /.container -->
+						</div><!-- /.item -->
+
+						<div class="item" style="background-image: url({% static 'image/new_phone.jpg' %});">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="caption vertical-center text-left">
+											<div class="hero-subtitle-v2 fadeInDown-1">
+												shop to get what you loves
+											</div>
+
+											<div class="hero-2 fadeInDown-2">
+												Timepieces that make a statement up to <strong>40% Off</strong>
+											 </div>
+
+											<div class="hero-action-btn fadeInDown-3">
+												<a href="{% url 'shop-list' %}" class="big le-button ">Start Buying</a>
+											</div>
+										</div><!-- /.caption -->
+									</div>
+								</div>
+							</div><!-- /.container -->
+						</div><!-- /.item -->
+
+						<div class="item" style="background-image: url({% static 'image/samsung.jpg' %});">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="caption vertical-center text-left">
+											<div class="hero-subtitle-v2 fadeInDown-1">
+												shop to get what you loves
+											</div>
+
+											<div class="hero-2 fadeInDown-2">
+												Timepieces that make a statement up to <strong>40% Off</strong>
+											 </div>
+
+											<div class="hero-action-btn fadeInDown-3">
+												<a href="{% url 'shop-list' %}" class="big le-button ">Start Buying</a>
+											</div>
+										</div><!-- /.caption -->
+									</div>
+								</div>
+							</div><!-- /.container -->
+						</div><!-- /.item -->
+
+
+					</div><!-- /.owl-carousel -->
+
+				<!-- ========================================= SECTION – HERO : END ========================================= -->
+				</div><!-- /.home-v1-slider -->
+
+
+				<div class="home-v3-ads-block animate-in-view animated">
+					<div class="ads-block row">
+						<div class="ad col-xs-12 col-sm-6">
+							<div class="media">
+								<div class="media-left media-middle">
+									<img  src="{% static 'image/cameras.jpg' %}" alt="">
+								</div>
+								<div class="media-body media-middle">
+									<div class="ad-text">
+										Catch Hottest <strong>Deals</strong> in Cameras Category
+									</div>
+									<div>
+										<a href="{% url 'shop-list' %}">Shop now</a>
+									</div>
+								</div>
+							</div>
+						</div><!-- /.col -->
+
+						<div class="ad col-xs-12 col-sm-6">
+							<div class="media">
+								<div class="media-left media-middle">
+									<img src="{% static 'image/DesktopPC.jpg' %}" alt="">
+								</div>
+								<div class="media-body media-middle">
+									<div class="ad-text">
+										Tablets, Smartphones <br><strong>and more</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+				</div><!-- /.home-v3-ads-block -->
+
+				<section class="products-carousel-tabs animate-in-view fadeIn animated" data-animation="fadeIn">
+					<h2 class="sr-only">Product Carousel Tabs</h2>
+					<ul class="nav nav-inline text-xs-left">
+						<li class="nav-item">
+							<a class="nav-link active" href="#tab-products-1" data-toggle="tab">Featured</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#tab-products-2" data-toggle="tab">On Sale</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#tab-products-3" data-toggle="tab">Top Rated</a>
+						</li>
+					</ul><!-- /.nav -->
+
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-products-1" role="tabpanel">
+							<section class="section-products-carousel" >
+								<div class="home-v3-owl-carousel-tabs">
+									<div class="woocommerce columns-4">
+
+										<div class="products owl-carousel home-v3-carousel-tabs products-carousel columns-4">
+											{% if  Featured %}
+											{% for fratured in Featured %}
+											<div class="product first">
+												<div class="product-outer">
+													<div class="product-inner">
+														<span class="loop-product-categories"><a href="{% url 'category:product-category' %}" rel="tag">{{ p.category.title }}</a></span>
+														<a href="{% url 'shop-detail' pk=fratured.id %}">
+															<h3>{{ fratured.name }}</h3>
+															<div class="product-thumbnail">
+																<img src="{{ fratured.image.url }}"  class="img-responsive" alt="">
+															</div>
+														</a>
+
+														<div class="price-add-to-cart">
+															<span class="price">
+																<span class="electro-price">
+																	<ins><span class="amount"> ${{ fratured.price }}</span></ins>
+																	<del><span class="amount">$2,299.00</span></del>
+																	<span class="amount"> </span>
+																</span>
+															</span>
+															<a href="{% url 'order_summary' %}" class="tondy-img">add to cart</a>
+														</div><!-- /.price-add-to-cart -->
+
+														
+													</div><!-- /.product-inner -->
+												</div><!-- /.product-outer -->
+											</div><!-- /.product -->
+											{% endfor %}
+											{% else %}
+											<div><p>no items</p></div>
+											{% endif %}
+										
+										</div><!-- /.products -->
+									</div>
+								</div>
+							</section>
+						</div><!-- /.tab-pane -->
+
+						<!-- tab-products-2 -->
+
+						<div class="tab-pane" id="tab-products-2" role="tabpanel">
+							<section class="section-products-carousel">
+								<div class="home-v3-owl-carousel-tabs">
+									<div class="woocommerce columns-4">
+
+										<div class="products owl-carousel home-v3-carousel-tabs products-carousel columns-4">
+
+											{% if  On_Sale %}
+											{% for fratured in On_Sale %}
+											<div class="product first">
+												<div class="product-outer">
+													<div class="product-inner">
+														<span class="loop-product-categories"><a href="product-category.html" rel="tag">{{ p.category }}</a></span>
+														<a href="single-product.html">
+															<h3>{{ fratured.name }}</h3>
+															<div class="product-thumbnail">
+																<img src="{{ fratured.image.url }}"  class="img-responsive" alt="">
+															</div>
+														</a>
+
+														<div class="price-add-to-cart">
+															<span class="price">
+																<span class="electro-price">
+																	<ins><span class="amount"> ${{ fratured.price }}</span></ins>
+																	<del><span class="amount">$2,299.00</span></del>
+																	<span class="amount"> </span>
+																</span>
+															</span>
+															<a rel="nofollow" href="single-product.html" class="button add_to_cart_button">Add to cart</a>
+														</div><!-- /.price-add-to-cart -->
+
+												
+													</div><!-- /.product-inner -->
+												</div><!-- /.product-outer -->
+											</div><!-- /.product -->
+											{% endfor %}
+											{% else %}
+											<div><p>no items</p></div>
+											{% endif %}
+
+									</div>
+								</div>
+							</section>
+						</div><!-- /.tab-pane -->
+
+						<div class="tab-pane" id="tab-products-3" role="tabpanel">
+							<section class="section-products-carousel">
+								<div class="home-v3-owl-carousel-tabs">
+									<div class="woocommerce columns-4">
+
+										<div class="products owl-carousel home-v3-carousel-tabs products-carousel columns-4">
+
+											{% if  Best_Rated %}
+											{% for fratured in Best_Rated %}
+											<div class="product first">
+												<div class="product-outer">
+													<div class="product-inner">
+														<span class="loop-product-categories"><a href="product-category.html" rel="tag">{{ p.category }}</a></span>
+														<a href="single-product.html">
+															<h3>{{ fratured.name }}</h3>
+															<div class="product-thumbnail">
+																<img src="{{ fratured.image.url }}"  class="img-responsive" alt="">
+															</div>
+														</a>
+
+														<div class="price-add-to-cart">
+															<span class="price">
+																<span class="electro-price">
+																	<ins><span class="amount"> ${{ fratured.price }}</span></ins>
+																	<del><span class="amount">$2,299.00</span></del>
+																	<span class="amount"> </span>
+																</span>
+															</span>
+															<a rel="nofollow" href="single-product.html" class="button add_to_cart_button">Add to cart</a>
+														</div><!-- /.price-add-to-cart -->
+
+														
+													</div><!-- /.product-inner -->
+												</div><!-- /.product-outer -->
+											</div><!-- /.product -->
+											{% endfor %}
+											{% else %}
+											<div><p>no items</p></div>
+											{% endif %}
+
+											
+									</div>
+								</div>
+							</section>
+						</div><!-- /.tab-pane -->
+					</div><!-- /.tab-content -->
+				</section><!-- /.products-carousel-tabs -->
+
+				<section class="products-carousel-with-image animate-in-view fadeIn animated" style="background-size: cover; background-position: center center; background-image: url( assets/images/home-v3-bg.jpg );" data-animation="fadeIn">
+					<h2 class="sr-only">Products Carousel</h2>
+					<div class="container">
+						<div class="row">
+							<div class="image-block col-xs-12 col-sm-6">
+								<img  src="{% static 'image/ad-banner-3.png' %}" alt="">
+							</div><!-- /.image-block -->
+
+							<div class="products-carousel-block col-xs-12 col-sm-6">
+								<section class="home-v2-categories-products-carousel section-products-carousel" >
+
+									<header>
+										<h2 class="h1"> </h2>
+										<div class="owl-nav">
+											<a href="#products-carousel-prev" data-target="#products-carousel-with-umage" class="slider-prev"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/back.png' %}"></span></a>
+											<a href="#products-carousel-next" data-target="#products-carousel-with-umage" class="slider-next"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/next (3).png' %}"></span></a>
+										</div>
+
+									</header>
+
+									<div id="products-carousel-with-umage">
+										<div class="woocommerce columns-4">
+
+
+											<div class="products owl-carousel home-v3-carousel-tabs products-carousel columns-4">
+												{% for h in home %}
+												<div class="product ">
+													<div class="product-outer">
+														<div class="product-inner">
+															<span class="loop-product-categories"><a href="{% url 'category:product-category' %}" rel="tag">Audio Speakers</a></span>
+															<a href="{% url 'shop-detail' pk=h.id %}">
+																<h3>{{ h.name }}</h3>
+																<div class="product-thumbnail">
+																	<img src="{{ h.image.url }}"  class="img-responsive" alt="">
+																</div>
+															</a>
+
+															<div class="price-add-to-cart">
+																<span class="price">
+																	<span class="electro-price">
+																		<ins><span class="amount"> ${{ h.price }}</span></ins>
+																		<del><span class="amount">${{ h.compre_to }}</span></del>
+																		<span class="amount"> </span>
+																	</span>
+																</span>
+															</div><!-- /.price-add-to-cart -->
+
+														
+														</div><!-- /.product-inner -->
+													</div><!-- /.product-outer -->
+												</div><!-- /.product -->
+												{% endfor %}
+										
+												
+
+											
+										</div>
+									</div>
+								</section>
+							</div><!-- /.iproducts-carousel-block -->
+						</div><!-- /.row -->
+					</div><!-- /.conainer -->
+				</section><!-- /.products-carousel-with-image-->
+
+				<section class="section-product-cards-carousel animate-in-view fadeIn animated" data-animation="fadeIn">
+					<header>
+						<h2 class="h1">Laptops &amp; Computers</h2>
+
+						<div class="owl-nav">
+							<a href="#products-cards-carousel-prev" data-target="#homev3-products-cards-carousel" class="slider-prev"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/back.png' %}"></span></a>
+							<a href="#products-cards-carousel-next" data-target="#homev3-products-cards-carousel" class="slider-next"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/next (3).png' %}"></span></a>							
+						</div>
+					</header><!-- /header-->
+
+
+					<div id="homev3-products-cards-carousel">
+						<div class="woocommerce home-v3 columns-2 product-cards-carousel owl-carousel">
+
+							<ul class="products columns-2">
+								{% if LaptopsComputers %}
+								{% for lc in LaptopsComputers %}
+								<li class="product product-card first">
+
+									<div class="product-outer">
+										<div class="media product-inner">
+
+											<a class="media-left" href="single-product.html" title="Pendrive USB 3.0 Flash 64 GB">
+												<img class="media-object wp-post-image img-responsive" src="assets/images/blank.gif" data-echo="assets/images/product-cards/2.jpg" alt="">
+
+											</a>
+
+											<div class="media-body">
+												<span class="loop-product-categories">
+													<a href="product-category.html" rel="tag">Smartphones</a>
+												</span>
+
+												<a href="single-product.html">
+													<h3>Tablet Thin EliteBook  Revolve 810 G6</h3>
+												</a>
+
+												<div class="price-add-to-cart">
+													<span class="price">
+														<span class="electro-price">
+															<ins><span class="amount"> </span></ins>
+															<span class="amount"> $500</span>
+														</span>
+													</span>
+
+													<a href="cart.html" class="button add_to_cart_button">Add to cart</a>
+												</div><!-- /.price-add-to-cart -->
+
+											</div>
+										</div><!-- /.product-inner -->
+									</div><!-- /.product-outer -->
+
+								</li><!-- /.products -->
+								{% endfor %}
+								{% else %}
+								<div><p>no items </p></div>
+								 
+								{% endif %}
+							
+						</div>
+					</div><!-- /#homev3-products-cards-carousel-->
+
+				</section><!-- /.section-product-cards-carousel-->
+
+				<section class="products-6-1 animate-in-view fadeIn animated" data-animation="fadeIn">
+					<div class="container">
+						<header>
+							<h2 class="h1">Bestsellers</h2>
+							<ul class="nav nav-inline">
+								<li class="nav-item active">
+									<span class="nav-link">Top 7</span>
+								</li>
+
+								<li class="nav-item">
+									<a class="nav-link" href="product-category.html">Smart Phones &amp; Tablets</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="product-category.html">Laptops &amp; Computers</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="product-category.html">Video Cameras</a>
+								</li>
+							</ul>
+						</header>
+
+						<div class="columns-6-1">
+							<ul class="products exclude-auto-height products-6">
+								{% if top_7 %}
+								{% for 7 in top_7 %}
+								<li class="product">
+									<div class="product-outer">
+										<div class="product-inner">
+											<span class="loop-product-categories"><a href="product-category.html" rel="tag">Smartphones</a></span>
+											<a href="single-product.html">
+												<h3>Notebook Black Spire V Nitro  VN7-591G</h3>
+												<div class="product-thumbnail">
+
+													<img data-echo="assets/images/products/5.jpg" src="assets/images/blank.gif" alt="">
+
+
+												</div>
+											</a>
+
+											<div class="price-add-to-cart">
+												<span class="price">
+													<span class="electro-price">
+														<ins><span class="amount">&#036;1,999.00</span></ins>
+														<del><span class="amount">&#036;2,299.00</span></del>
+													</span>
+												</span>
+												<a rel="nofollow" href="single-product.html" class="button add_to_cart_button">Add to cart</a>
+											</div><!-- /.price-add-to-cart -->
+
+										
+										</div><!-- /.product-inner -->
+									</div><!-- /.product-outer -->
+								</li>
+							{% endfor %}
+							{% else %}
+							<div><p>no items</p></div>
+							{% endif %}	
+							</ul>
+
+							<ul class="products exclude-auto-height product-main-6-1">
+								{% if Game %}
+								<li class="first product">
+
+									<div class="product-outer">
+										<div class="product-inner">
+											<span class="loop-product-categories">
+												<a href="product-category.html" rel="tag">Game Consoles</a>
+											</span>
+
+											<a href="single-product.html">
+												<h3>Game Console Controller <br/>+ USB 3.0 Cable</h3>
+												<div class="product-thumbnail">
+													<img src="assets/images/blank.gif" data-echo="assets/images/products/6-1.jpg" class="wp-post-image" alt="">
+												</div>
+											</a>
+
+											<div class="thumbnails columns-3">
+												<a href="images/products/thumb1.jpg" class="zoom first" title="" data-rel="prettyPhoto[product-gallery]">
+													<img src="assets/images/blank.gif" data-echo="assets/images/products/thumb1.jpg"  alt="">
+												</a>
+												<a href="images/products/thumb2.jpg" class="zoom" title="" data-rel="prettyPhoto[product-gallery]">
+													<img src="assets/images/blank.gif" data-echo="assets/images/products/thumb2.jpg"  alt="">
+												</a>
+												<a href="images/products/thumb3.jpg" class="zoom last" title="" data-rel="prettyPhoto[product-gallery]">
+													<img src="assets/images/blank.gif" data-echo="assets/images/products/thumb3.jpg"  alt="">
+												</a>
+											</div>
+
+											<div class="price-add-to-cart">
+												<span class="price">
+													<span class="electro-price"><ins><span class="amount">&#36;79.00</span></ins> <del><span class="amount">&#36;99.00</span></del></span>
+												</span>
+
+												<a rel="nofollow" href="cart.html" class="button add_to_cart_button">Add to cart</a>
+											</div><!-- /.price-add-to-cart -->
+
+											
+										</div><!-- /.product-inner -->
+									</div><!-- /.product-outer -->
+								</li><!-- /.product -->
+								{% else %}
+								<div><p>no items</p></div>
+								{% endif %}
+							</ul><!-- /.products-->
+						</div><!-- /.columns-6-1 -->
+					</div><!-- /.container-->
+				</section><!-- /.products-6-1 -->
+
+				<!-- Recently Added -->
+
+				<section class="home-v1-recently-viewed-products-carousel section-products-carousel animate-in-view fadeIn animated" data-animation="fadeIn">
+                    <header>
+                        <h2 class="h1">Recently Added</h2>
+                        <div class="owl-nav">
+                            <a href="#products-carousel-prev" data-target="#recently-added-products-carousel" class="slider-prev"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/back.png' %}"></span></a>
+                            <a href="#products-carousel-next" data-target="#recently-added-products-carousel" class="slider-next"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/next (3).png' %}"></span></a>
+                        </div>
+                    </header>
+
+                    <div id="recently-added-products-carousel">
+                        <div class="woocommerce columns-6">
+                            <div class="products owl-carousel recently-added-products products-carousel columns-6">
+								{% if Recently_Added %}
+								{% for ra in Recently_Added  %}
+                                <div class="product">
+                                    <div class="product-outer">
+                                        <div class="product-inner">
+                                            <span class="loop-product-categories"><a href="product-category.html" rel="tag">Smartphones</a></span>
+                                            <a href="single-product.html">
+                                                <h3>Tablet Thin EliteBook  Revolve 810 G6</h3>
+                                                <div class="product-thumbnail">
+                                                    <img src="assets/images/blank.gif" data-echo="assets/images/product-category/2.jpg" class="img-responsive" alt="">
+                                                </div>
+                                            </a>
+
+                                            <div class="price-add-to-cart">
+                                                <span class="price">
+                                                    <span class="electro-price">
+                                                        <ins><span class="amount"> $1,999.00</span></ins>
+                                                        <del><span class="amount">$2,299.00</span></del>
+                                                        <span class="amount"> </span>
+                                                    </span>
+                                                </span>
+                                                <a rel="nofollow" href="single-product.html" class="button add_to_cart_button">Add to cart</a>
+                                            </div><!-- /.price-add-to-cart -->
+
+                                            
+                                        </div><!-- /.product-inner -->
+                                    </div><!-- /.product-outer -->
+                                </div><!-- /.products -->
+								{% endfor %}
+								{% else %}
+									<div><p>no Items</p></div>
+								{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+			</main><!-- #main -->
+		</div><!-- #primary -->
+	</div><!-- .container -->
+</div><!-- #content -->
+
+
+{% endblock %}

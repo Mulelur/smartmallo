@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div id="content" class="site-content" tabindex="-1">
+	<div class="container">
+
+		<nav class="woocommerce-breadcrumb"><a href="{% url 'home' %}">Home</a><span class="delimiter"><span><img style="display: inline-block;margin-right: 7px;" height="5" width="10" src="{% static 'png/next (3).png' %}"></span></span>Cart</nav>
+
+		<div id="primary" class="content-area">
+			<main id="main" class="site-main">
+				<article class="page type-page status-publish hentry">
+					<header class="entry-header"><h1 itemprop="name" class="entry-title">Cart</h1></header><!-- .entry-header -->
+
+					<form>
+
+						<table class="shop_table shop_table_responsive cart">
+							<thead>
+								<tr>
+									<th class="product-remove">&nbsp;</th>
+									<th class="product-thumbnail">&nbsp;</th>
+									<th class="product-name">Product</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-subtotal">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in order.get_cart_items %}	
+								<tr class="cart_item">
+									<td class="product-remove">
+										<a class="remove" href="{% url 'delete_item' item_id=item.id %}">×</a>
+									</td>
+
+									<td class="product-thumbnail">
+										<a href="{% url 'shop-detail' pk=item.id %}"><img width="180" height="180" src="{{ item.product.image.url }}" alt=""></a>
+									</td>
+
+									<td data-title="Product" class="product-name">
+										<a href="{% url 'shop-detail' pk=item.id %}">{{ item.product.name }}</a>
+									</td>
+
+									<td data-title="Price" class="product-price">
+										<span class="amount">${{ item.product.price }}</span>
+									</td>
+
+									<td data-title="Quantity" class="product-quantity">
+										<div class="quantity buttons_added"><input type="button" class="minus" value="-">
+											<label>Quantity:</label>
+											<input type="number" size="4" class="input-text qty text" title="Qty" value="{{ item.product.quantity }}" name="cart{{ item.product.id }}" max="29" min="0" step="1">
+											<input type="button" class="plus" value="+">
+										</div>
+									</td>
+
+									<td data-title="Total" class="product-subtotal">
+										<span class="amount">${{ order.get_cart_total_quantity }}</span>
+									</td>
+								</tr>
+								{% empty %}
+									<tr>
+									<td colspan= 3> You have not added any items yet.</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<td class="actions" colspan="6">
+										<div class="wc-proceed-to-checkout" style="text-align: center; margin-bottom: 20px;">
+											<a href="{% url 'shop-list' %}" class="button">
+												{% if order %}Continue Shopping{% else %}Add Items to Cart {% endif %}
+											</a> 
+										</div>
+										<div class="wc-proceed-to-checkout">
+											{% if order.get_cart_items %}
+												<a href="{% url 'checkout' %}" class="checkout-button button alt wc-forward" >Proceed to Checkout</a>
+											{% endif %}
+										</div>
+
+										<input type="hidden" value="1eafc42c5e" name="_wpnonce"><input type="hidden" value="/electro/cart/" name="_wp_http_referer">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					<div class="cart-collaterals">
+						<!-- Cart Totals -->
+						<div class="cart_totals ">
+
+							<h2>Cart Totals</h2>
+
+							<table class="shop_table shop_table_responsive">
+
+								<tbody>
+									<tr class="cart-subtotal">
+										<th>Subtotal</th>
+										<td data-title="Subtotal"><span class="amount">${{ order.get_cart_total }}</span></td>
+									</tr>
+
+
+									<tr class="shipping">
+										<th>Shipping</th>
+										<td data-title="Shipping">Flat Rate: <span class="amount">$15</span> <input type="hidden" class="shipping_method" value="international_delivery" id="shipping_method_0" data-index="0" name="shipping_method[0]">
+<!-- 
+											<form method="post" action="cart.html" class="woocommerce-shipping-calculator">
+
+												<p><a data-toggle="collapse" aria-controls="calculator" href="#calculator" aria-expanded="false" class="shipping-calculator-button">Calculate Shipping</a></p>
+
+												<div id="calculator" class="shipping-calculator-form collapse">
+													<p id="calc_shipping_country_field" class="form-row form-row-wide">
+														<select rel="calc_shipping_state" class="country_to_state" id="calc_shipping_country" name="calc_shipping_country">
+															<option selected="true" value="">Select a country…</option>
+															{% for key,value in country.items %}
+															<option value="{{ key }}">{{ value }}</option>
+															{% endfor %}
+														</select>
+													</p>
+
+													<p id="calc_shipping_state_field" class="form-row form-row-wide validate-required">
+														<span>
+															<select id="calc_shipping_state" name="calc_shipping_state">
+																<option value="">Select an option…</option>
+																{% for key,value in options.items %}
+																	<option value="{{ key }}">{{ value }}</option>
+																{% endfor %}
+															</select>		
+														</span>
+													</p>
+
+													<p id="calc_shipping_postcode_field" class="form-row form-row-wide validate-required">
+														<input type="text" id="calc_shipping_postcode" name="calc_shipping_postcode" placeholder="Postcode / ZIP" value="" class="input-text">
+													</p>
+
+													<p><button class="button" value="1" name="calc_shipping" type="submit">Update Totals</button></p>
+
+													<input type="hidden" value="1eafc42c5e" name="_wpnonce"><input type="hidden" value="/electro/cart/" name="_wp_http_referer">
+												</div>
+											</form> -->
+										</td>
+									</tr>
+
+									<tr class="order-total">
+										<th>Total</th>
+										<td data-title="Total"><strong><span class="amount">${{ order.get_cart_total_shipping_quantity }}</span></strong> </td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="wc-proceed-to-checkout">
+
+								<a class="checkout-button button alt wc-forward" href="{% url 'checkout' %}">Proceed to Checkout</a>
+							</div>
+						</div>
+					</div>
+				</article>
+			</main><!-- #main -->
+		</div><!-- #primary -->
+	</div><!-- .container -->
+</div>
+
+ {% endblock %}
+ {% block scripts %}
+  {{ block.super }}
+  <script>
+  function confirm_delete(){
+    return confirm("Do you want to remove this item from cart?");
+  }
+  </script>
+{% endblock scripts %}
+

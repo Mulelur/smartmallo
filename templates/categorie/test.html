@@ -1,0 +1,12 @@
+<h1>hello</h1>
+
+{{banner}}
+
+
+{% for bn in banner %}
+
+<h1>{{bn.page_name}}</h1>
+    {{ bn.get_banner }}
+    <!-- {{bn.image_is}} -->
+{% endfor %}
+{{banner.image_is}}

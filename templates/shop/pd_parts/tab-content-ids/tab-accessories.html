@@ -1,0 +1,128 @@
+<div class="tab-pane panel entry-content wc-tab" id="tab-accessories">
+
+    <div class="accessories">
+
+        <div class="electro-wc-message"></div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-left">
+                    <ul class="products columns-3">
+                        <li class="product first">
+                            <div class="product-outer">
+                                <div class="product-inner">
+                                    <span class="loop-product-categories"><a href="product-category.html" rel="tag">Smartphones</a></span>
+                                    <a href="single-product.html">
+                                        <h3>{{ product.name }}</h3>
+                                        <div class="product-thumbnail">
+
+                                            <img  src="{{ product.image.url }}" alt="">
+
+                                        </div>
+                                    </a>
+
+                                    <div class="price-add-to-cart">
+                                        <span class="price">
+                                            <span class="electro-price">
+                                                <ins><span class="amount">&#036;{{ product.price }}</span></ins>
+                                                <del><span class="amount">&#036;{{ product.compre_to }}</span></del>
+                                            </span>
+                                        </span>
+                                        <a rel="nofollow" href="single-product.html" class="button add_to_cart_button">Add to cart</a>
+                                    </div><!-- /.price-add-to-cart -->
+
+                                    <div class="hover-area">
+                                        <div class="action-buttons">
+                                            <a href="#" rel="nofollow" class="add_to_wishlist">Wishlist</a>
+                                            <a href="#" class="add-to-compare-link">Compare</a>
+                                        </div>
+                                    </div>
+                                </div><!-- /.product-inner -->
+                            </div><!-- /.product-outer -->
+                        </li>
+                        {% if conn %}
+                            {% for c in  product.connect.all %}
+                            <li class="product ">
+                                <div class="product-outer">
+                                    <div class="product-inner">
+                                        <span class="loop-product-categories"><a href="product-category.html" rel="tag">Smartphones</a></span>
+                                        <a href="single-product.html">
+                                            <h3>{{ conn.products.name }}</h3>
+                                            <div class="product-thumbnail">
+
+                                                <img  src="{{ conn.products.image.url }}" alt="">
+
+                                            </div>
+                                        </a>
+
+                                        <div class="price-add-to-cart">
+                                            <span class="price">
+                                                <span class="electro-price">
+                                                    <ins><span class="amount">&#036;{{ conn.products.price }}</span></ins>
+                                                    <del><span class="amount">&#036;{{ conn.products.compre_to }}</span></del>
+                                                </span>
+                                            </span>
+                                            <a rel="nofollow" href="single-product.html" class="button add_to_cart_button">Add to cart</a>
+                                        </div><!-- /.price-add-to-cart -->
+
+                                        <div class="hover-area">
+                                            <div class="action-buttons">
+                                                <a href="#" rel="nofollow" class="add_to_wishlist">Wishlist</a>
+                                                <a href="#" class="add-to-compare-link">Compare</a>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.product-inner -->
+                                </div><!-- /.product-outer -->
+                            </li>
+                            {% endfor %}
+                            
+                        {% else %}
+                            <div><p>no Items</p></div>
+                        {% endif %}
+                    
+                    </ul><!-- /.products -->
+
+                    <div class="check-products">
+                        <div class="checkbox accessory-checkbox">
+                            <label>
+                                <input checked disabled type="checkbox" class="product-check">
+                                <span class="product-title">
+                                    <strong>This product: </strong>{{ product.name }}
+                                </span>
+                                -
+                                <span class="accessory-price">
+                                    <span class="amount">&#36;{{ product.price }}</span>
+                                </span>
+                            </label>
+                        </div>
+                      
+                        <div class="checkbox accessory-checkbox">
+                            <label>
+                                <input checked type="checkbox" class="product-check">
+                                <span class="product-title">{{ conn.products.name }}</span>
+                                -
+                                <span class="accessory-price">
+                                    <span class="amount">&#36;{{ conn.products.price }}</span>
+                                </span>
+                            </label>
+                        </div>
+                 
+                    
+                </div><!-- /.col -->
+
+                <div class="col-xs-12 col-sm-3 col-right">
+                    <div class="total-price">
+                        <span class="total-price-html">
+                            <span class="amount">&#036;1,424.00</span>
+                        </span>
+                        for <span class="total-products">3</span>
+                        items
+                    </div><!-- /.total-price -->
+
+                    <div class="accessories-add-all-to-cart">
+                        <button type="button" class="button btn btn-primary add-all-to-cart">Add all to cart</button>
+                    </div><!-- /.accessories-add-all-to-cart -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+        </div><!-- /.accessories -->
+    </div>
+</div>

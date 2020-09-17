@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div id="content" class="site-content" tabindex="-1">
+    <div class="container">
+
+        <nav class="woocommerce-breadcrumb" ><a href="{% url 'home' %}">Home</a><span class="delimiter"><span><img class="tondy-img" height="5" width="10" src="{% static 'png/next (3).png' %}"></span><a href="{% url 'my_account' %}">My Account</a><span class="delimiter"><span><img class="tondy-img" height="5" width="10" src="{% static 'png/next (3).png' %}"></span>Profile</nav><!-- .woocommerce-breadcrumb -->
+
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                
+
+                    <div class="entry-content">
+                        
+                            <div class="col2-set">
+                                <form  method="POST">
+                                    {% csrf_token %}  
+                            
+                                        <h2>Manage your delivery addresses</h2>
+                                            {{ form|crispy }}
+                                        
+                                        <div class="flex-sb-m w-full p-b-30">
+                                        <div class="contact100-form-checkbox">
+                                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                                            <label class="label-checkbox100" for="ckb1">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="py-2">
+                                        <button class="btn btn-outline-info">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                 
+                    </div><!-- .entry-content -->
+
+          
+            </main><!-- #main -->
+        </div><!-- #primary -->
+
+    </div><!-- .col-full -->
+</div><!-- #content -->
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="content" class="site-content" tabindex="-1">
+    <div class="container">
+
+        <nav class="woocommerce-breadcrumb">
+            <a href="{% url 'home' %}l">Home</a>
+            <span class="delimiter"><span><img style="display: inline-block;margin-right: 7px;" height="5" width="10" src="{% static 'png/next (3).png' %}"></span></span>
+            <a href="{% url 'shop-list' %}">Shop</a>
+            <span class="delimiter"><span><img style="display: inline-block;margin-right: 7px;" height="5" width="10" src="{% static 'png/next (3).png' %}"></span>
+            </span>{{ product.name }}
+        </nav><!-- /.woocommerce-breadcrumb -->
+
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+
+                <div class="product">
+
+                    <!-- single product -->
+                    {% include 'shop/pd_parts/pd_single.html' %}
+
+
+                    <div class="woocommerce-tabs wc-tabs-wrapper">
+                        <ul class="nav nav-tabs electro-nav-tabs tabs wc-tabs" role="tablist">
+                            <li class="nav-item accessories_tab">
+                                <a href="#tab-accessories" data-toggle="tab">Accessories</a>
+                            </li>
+
+                            <li class="nav-item description_tab">
+                                <a href="#tab-description" class="active" data-toggle="tab">Description</a>
+                            </li>
+
+                            <li class="nav-item specification_tab">
+                                <a href="#tab-specification" data-toggle="tab">Specification</a>
+                            </li>
+
+                            <li class="nav-item reviews_tab">
+                                <a href="#tab-reviews" data-toggle="tab">Reviews</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- id=tab-accessories -->
+                                {% include 'shop/pd_parts/tab-content-ids/tab-accessories.html' %}
+                            <!-- id=tab-description -->
+                                {% include 'shop/pd_parts/tab-content-ids/tab-description.html' %}
+                            <!-- id=tab-specification -->
+                                {% include 'shop/pd_parts/tab-content-ids/tab-specification.html' %}
+                            <!-- id=tab-reviews -->
+                                {% include 'shop/pd_parts/tab-content-ids/tab-reviews.html' %}
+
+                        </div>
+                    </div><!-- /.woocommerce-tabs -->
+
+                    <!-- related products -->
+
+                    
+                </div><!-- /.product -->
+
+            </main><!-- /.site-main -->
+        </div><!-- /.content-area -->
+    </div><!-- /.container -->
+</div><!-- /.site-content -->
+
+			
+
+{% endblock %}

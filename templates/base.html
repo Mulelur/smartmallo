@@ -1,0 +1,592 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>SmartMallo &#8211;mr </title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}" media="all"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/animate.min.css' %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-electro.css' %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/owl-carousel.css' %}" media="all" />
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}" media="all" />
+		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/colors/yellow.css' %}" media="all" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/tondy.css' %}" media="all" />
+
+        <!-- Demo Purpose Only. Should be removed in production -->
+		<link rel="stylesheet" href="{% static 'assets/css/config.css' %}">
+		
+		<!-- <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}"> -->
+        <link href="{% static 'assets/css/colors/green.css' %}" rel="alternate stylesheet" title="Green color">
+        <link href="{% static 'assets/css/colors/pink.css' %}" rel="alternate stylesheet" title="Pink color">
+        <link href="{% static 'assets/css/colors/blue.css' %}" rel="alternate stylesheet" title="Blue color">
+        <link href="{% static 'assets/css/colors/red.css' %}" rel="alternate stylesheet" title="Red color">
+        <link href="{% static 'assets/css/colors/orange.css' %}" rel="alternate stylesheet" title="Orange color">
+        <link href="{% static 'assets/css/colors/black.css' %}" rel="alternate stylesheet" title="Black color">
+        <link href="{% static 'assets/css/colors/gold.css' %}" rel="alternate stylesheet" title="Gold color">
+        <link href="{% static 'assets/css/colors/yellow.css' %}" rel="alternate stylesheet" title="Yellow color">
+        <link href="{% static 'assets/css/colors/flat-blue.css' %}" rel="alternate stylesheet" title="Flat Blue color">
+        <!-- Demo Purpose Only. Should be removed in production : END -->
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,700italic,800,800italic,600italic,400italic,300italic' rel='stylesheet' type='text/css'>
+
+        <link rel="shortcut icon" href="{% static 'image/fvraicon-removebg-preview.png' %}">
+    </head>
+	
+	<!-- Header -->
+	<body class="page home page-template-default">
+        <div id="page" class="hfeed site">
+            
+            <div class="top-bar hidden-md-down">
+                <div class="container">
+                    <nav>
+                        <ul id="menu-top-bar-left" class="nav nav-inline pull-left animate-dropdown flip">
+							{% if user.is_authenticated %}
+                            <li class="menu-item animate-dropdown"><a title="Welcome to Worldwide Electronics Store" href="#">hello,{{ user.username }}</a></li>
+							{% else %}
+							<li class="menu-item animate-dropdown"><a title="Welcome to Worldwide Electronics Store" href="#">Welcome to Worldwide Electronics Store</a></li>
+							{% endif %}
+						</ul>
+                    </nav>
+
+                    <nav>
+                        <ul id="menu-top-bar-right" class="nav nav-inline pull-right animate-dropdown flip">
+                            <li class="menu-item animate-dropdown"><span><img class="tondy-img" height="20" width="20" src="{% static 'png/truck.png' %}"></span><a title="Track Your Order" href="{% url 'order_tracking' %}">Track Your Order</a></li>
+							<li class="menu-item animate-dropdown"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/bag.png' %}"></span><a title="Shop" href="{% url 'shop-list' %}">Shop</a></li>
+							{% if user.is_authenticated %}
+                            <li class="menu-item animate-dropdown"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/account.png' %}"></span><a title="My Account" href="{% url 'my_account' %}">My Account</a></li>
+							{% else %}
+							<li class="menu-item animate-dropdown"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/account.png' %}"></span><a title="My Account" href="{% url 'login' %}">Login/Register</a></li>
+							{% endif %}
+						</ul>
+                    </nav>
+                </div>
+            </div><!-- /.top-bar -->
+
+            <header id="masthead" class="site-header header-v3">
+                <div class="container hidden-md-down">
+                    <div class="row">
+
+                        <!-- ============================================================= Header Logo ============================================================= -->
+                        <div class="header-logo">
+							<a href="{% url 'home' %}" class="header-logo-link"><img src="{% static 'logo/logo.png' %}" alt=""></a>
+                        </div>
+                        <!-- ============================================================= Header Logo : End============================================================= -->
+
+                        <form class="navbar-search" method="GET" action="{% url 'search' %}">
+                        	<label class="sr-only screen-reader-text" for="search">Search for:</label>
+                        	<div class="input-group">
+                        		<input type="text" id="search" class="form-control search-field" dir="ltr" value="" name="s" placeholder="Search for products" />
+                        		<div class="input-group-addon search-categories">
+                        			<select name='product_cat' id='product_cat' class='postform resizeselect' >
+                        				<option value='0' selected='selected'>All Categories</option>
+										<!-- for loop here! -->
+										{% for category in categories %}
+										<option value='0' >{{ category.title }}</option>
+										{% endfor %}
+                        			</select>
+                        		</div>
+                        		<div class="input-group-btn">
+                        			<input type="hidden" id="search-param" name="q" value="product"/>
+                        			<button type="submit" class="btn btn-secondary">Go</button>
+                        		</div>
+                        	</div>
+                        </form>
+                        <ul class="navbar-mini-cart navbar-nav animate-dropdown nav pull-right flip">
+                        	<li class="nav-item dropdown">
+                        		<a href="{% url 'order_summary' %}" class="nav-link" data-toggle="dropdown">
+                        			<span><img style="display: inline-block;margin-right: 7px;" height="16" width="17" src="{% static 'png/supermarket .png' %}"></span>
+                        			<span class="cart-items-count count">{% if order.get_cart_items %}{{ order.get_cart_items.count }}{% else %}0{% endif %}</span>
+                        			<span class="cart-items-total-price total-price"></span>
+                        		</a>
+                        		<ul class="dropdown-menu dropdown-menu-mini-cart">
+                        			<li>
+                        				<div class="widget_shopping_cart_content">
+
+                        					<ul class="cart_list product_list_widget ">
+
+												{% for item in order.get_cart_items %}	
+                        						<li class="mini_cart_item">
+                        							<a title="Remove this item" class="remove" href="{% url 'delete_item' item_id=item.id %}">×</a>
+                        							<a href="{% url 'shop-detail' pk=item.id %}">
+                        								<img class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" src="{{ item.product.image.url }}" alt="">{{ item.product.name }}&nbsp;
+                        							</a>
+
+                        							<span class="quantity">2 × <span class="amount">£{{ item.productprice }}</span></span>
+												</li>
+												{% empty %}
+													<tr>
+													<td colspan= 3> You have not added any items yet.</td>
+													</tr>
+												{% endfor %}
+
+                        					</ul><!-- end product list -->
+
+
+                        					<p class="total"><strong>Subtotal:</strong> <span class="amount">£{{ order.get_cart_total }}</span></p>
+
+
+                        					<p class="buttons">
+												<a class="button wc-forward" href="{% url 'order_summary' %}">View Cart</a>
+												{% if order.get_cart_items %}
+												<a class="button checkout wc-forward" href="{% url 'checkout' %}">Checkout</a>
+												{% endif %}
+                        					</p>
+
+                        				</div>
+                        			</li>
+                        		</ul>
+                        	</li>
+                        </ul>
+
+                        <ul class="navbar-wishlist nav navbar-nav pull-right flip">
+                        	<li class="nav-item">
+                        		<a href="{% url 'wishlist:wishlist' %}" class="nav-link">                        		
+                        			<span><img style="display: inline-block;margin-right: 7px;" height="17" width="17" src="{% static 'png/heart.png' %}"></span>
+								</a>
+                        	</li>
+                        </ul>
+                        <ul class="navbar-compare nav navbar-nav pull-right flip">
+                        	<li class="nav-item">
+                        		<a href="compare.html" class="nav-link">
+									<span><img style="display: inline-block;margin-right: 7px;" height="16" width="16" src="{% static 'png/compare.png' %}"></span>
+								</a>
+                        	</li>
+                        </ul>
+                    </div><!-- /.row -->
+                </div><!-- /.container -->
+
+                <div class="container hidden-lg-up sticky" id="navbar">
+                    <div class="handheld-header">
+
+                        <!-- ============================================================= Header Logo ============================================================= -->
+                        <div class="header-logo">
+                            <a href="{% url 'home' %}" class="header-logo-link"><img src="{% static 'logo/logo.png' %}" alt=""></a>
+                        </div>
+                        <!-- ============================================================= Header Logo : End============================================================= -->
+						<ul class="navbar-mini-cart navbar-nav animate-dropdown nav pull-right flip">
+                        	<li class="nav-item dropdown">
+                        		<a href="{% url 'order_summary' %}" class="nav-link" data-toggle="dropdown">
+                        			<span><img class="tondy-nav-cart" height="16" width="17" src="{% static 'png/supermarket .png' %}"></span>
+                        			<span class="cart-items-count count">{% if order.get_cart_items %}{{ order.get_cart_items.count }}{% else %}0{% endif %}</span>
+                        			<span class="cart-items-total-price total-price"></span>
+                        		</a>
+                        		<ul class="dropdown-menu dropdown-menu-mini-cart">
+                        			<li>
+                        				<div class="widget_shopping_cart_content">
+
+                        					<ul class="cart_list product_list_widget ">
+
+												{% for item in order.get_cart_items %}	
+                        						<li class="mini_cart_item">
+                        							<a title="Remove this item" class="remove" href="{% url 'delete_item' item_id=item.id %}">×</a>
+                        							<a href="{% url 'shop-detail' pk=item.id %}">
+                        								<img class="attachment-shop_thumbnail size-shop_thumbnail wp-post-image" src="{{ item.product.image.url }}" alt="">{{ item.product.name }}&nbsp;
+                        							</a>
+
+                        							<span class="quantity">2 × <span class="amount">£{{ item.productprice }}</span></span>
+												</li>
+												{% empty %}
+													<tr>
+													<td colspan= 3> You have not added any items yet.</td>
+													</tr>
+												{% endfor %}
+
+                        					</ul><!-- end product list -->
+
+
+                        					<p class="total"><strong>Subtotal:</strong> <span class="amount">£{{ order.get_cart_total }}</span></p>
+
+
+                        					<p class="buttons">
+												<a class="button wc-forward" href="{% url 'order_summary' %}">View Cart</a>
+												{% if order.get_cart_items %}
+												<a class="button checkout wc-forward" href="{% url 'checkout' %}">Checkout</a>
+												{% endif %}
+                        					</p>
+
+                        				</div>
+                        			</li>
+                        		</ul>
+                        	</li>
+                        </ul>
+						
+                        <div class="handheld-navigation-wrapper">   
+                            <div class="handheld-navbar-toggle-buttons clearfix"> 
+                                <button class="navbar-toggler navbar-toggle-hamburger hidden-lg-up pull-right flip" type="button"> 
+									<span><img style="display: inline-block;margin-bottom: 13px;" height="16" width="17" src="{% static 'png/open-menu.png' %}"></span>
+                                </button> 
+                                <button class="navbar-toggler navbar-toggle-close hidden-lg-up pull-right flip" type="button"> 
+                                    <span><img style="display: inline-block;margin-bottom: 13px;" height="16" width="17" src="{% static 'png/close.png' %}"></span>
+                                </button>
+                            </div>  
+                            <div class="handheld-navigation hidden-lg-up" id="default-hh-header"> 
+                                <span class="tondy-hd"><a href="{% url 'home' %}"><img src="{% static 'logo/logo.png' %}" alt=""></a></span>
+	
+								<ul id="menu-all-departments-menu-1" class="nav nav-inline yamm">
+									<li class="highlight menu-item animate-dropdown ">
+										{% if user.is_authenticated %}
+										<a title="My Account" href="{% url 'my_account' %}"><img class="tondy-img" height="25" width="25" src="{% static 'png/account (3).png' %}">Hi,{{ user.username }}!</a>
+										{% else %}
+										<a title="My Account" href="{% url 'login' %}"><img class="tondy-img" height="25" width="25" src="{% static 'png/account (3).png' %}">Login/Register</a>
+										{% endif %}
+									</li>
+									<li class="highlight menu-item animate-dropdown ">
+										<form action="." method="get">
+											<input style="margin-left: 30px;" class="tondy-search" type="search" name="q" placeholder="saerch...">
+										</form>
+									</li>
+									<hr>
+									<ul id="menu-all-departments-menu-1" class="nav nav-inline yamm">
+										<li class="highlight menu-item animate-dropdown ">
+											<a href="{% url 'shop-list' %}">Shop</a>
+										</li>
+									</ul>
+									<!-- account -->
+									<li class="menu-item  animate-dropdown dropdown">
+                                        <a title="Computers &amp; Accessories" href="{% url 'category:product-category' %}" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true">My Account</a>
+                                        <ul role="menu" class=" dropdown-menu">
+                                            <li class="menu-item animate-dropdown ">
+                                                <div class="yamm-content">
+                                                    <div class="col-sm-6">
+                                                        <ul>
+                                                            <li class="nav-title">Account</li>
+															<li><a href="{% url 'my_account' %}">Orders</a></li>
+															<li><a href="{% url 'article:returns_exchange' %}">Reorder Items</a></li>
+															<li><a href="{% url 'order_tracking' %}">Track Orders</a></li>
+                                                           
+                                                            <li class="nav-divider"></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <ul>
+                                                            <li class="nav-title">Customer Service</li>
+															<li><a href="{% url 'article:article_detail' category_slug='other' sub_category_slug='policies-terms-and-conditions' article_slug='terms-use' %}">Trems of use</a></li>
+															<li><a href="{% url 'help' %}">Help</a></li>
+                                                            <li><a href="{% url 'logout' %}">Sign Out</a></li>
+                                                        </ul>
+                                                    </div>                              
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+									<!-- endaccount -->
+									{% for c in categories %}
+                                    <li class="menu-item  animate-dropdown dropdown">
+                                        <a title="{ c.title }}" href="{% url 'category:product-category' %}" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true">{{ c.title }}</a>
+                                        <ul role="menu" class=" dropdown-menu">
+                                            <li class="menu-item animate-dropdown ">
+                                                <div class="yamm-content">
+                                                    <div class="col-sm-6">
+                                                        <ul>
+                                                            <li class="nav-title">Computers &amp; Accessories</li>
+															<li><a href="#">All {{ c.title }}</a></li>
+															{% if categories.subcategory.all  %}
+															{% for s in categories.subcategory.all %}
+															<li><a href="#">{{ s.title }}</a></li>
+														   {% endfor %}
+														   {% else %}
+																no category's
+														   {% endif %}
+                                                            <li class="nav-divider"></li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="nav-text">All Electronics</span>
+                                                                    <span class="nav-subtext">Discover more products</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <ul>
+                                                            <li class="nav-title">Office &amp; Stationery</li>
+                                                            <li><a href="#">All Office &amp; Stationery</a></li>
+                                                            <li><a href="#">Pens &amp; Writing</a></li>
+                                                        </ul>
+                                                    </div>                              
+                                                </div>
+                                            </li>
+                                        </ul>
+									</li>
+									{% endfor %}
+                                   	{% if user.is_authenticated %}
+									<hr>
+									<li class="highlight menu-item animate-dropdown ">
+										<a title="Shop" href="{% url 'logout' %}"><img class="tondy-img" height="25" width="25" src="{% static 'png/logout.png' %}">Sign out</a>
+									</li>
+									{% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </header><!-- #masthead -->
+
+            <nav class="navbar navbar-primary navbar-full yamm hidden-md-down">
+            	<div class="container">
+            		<div class="clearfix">
+            			<button class="navbar-toggler hidden-sm-up pull-right flip" type="button" data-toggle="collapse" data-target="#header-v3">
+            				&#9776;
+            			</button>
+            		</div>
+
+            		<div class="collapse navbar-toggleable-xs" id="header-v3">
+            			<ul class="nav navbar-nav">
+							{% for c in categories %}
+							<li class="menu-item"><a title="RTV" href="{% url 'category:product-category' %}">{{ c.title }}</a></li>
+							{% endfor %}
+            			</ul>
+            		</div><!-- /.collpase -->
+            	</div><!-- /.-container -->
+            </nav><!-- /.navbar -->
+	
+	
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					{{ message }}
+				</div>
+				{% endfor %}
+			{% endif %}
+			{% block content %}  {% endblock %}
+		
+<!-- fg -->
+
+	<footer id="colophon" class="site-footer">
+		<div class="footer-widgets">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-xs-12">
+						<aside class="widget clearfix">
+							<div class="body">
+								<h4 class="widget-title">Featured Products</h4>
+								<ul class="product_list_widget">
+									{% if Featured %}
+									{% for featured in Featured %}
+									<li>
+										<a href="{% url 'shop-detail' pk=featured.id %}" title="Tablet Thin EliteBook  Revolve 810 G6">
+											<img class="wp-post-image"  src="{{ featured.image.url }}" alt="">
+											<span class="product-title">{{ featured.name }}</span>
+										</a>
+										<span class="electro-price"><span class="amount">&#36;1,300.00</span></span>
+									</li>
+									{% endfor %}
+									{% else %}
+									<p>no Featured</p>
+									{% endif %}
+								</ul>
+							</div>
+						</aside>
+					</div>
+					<div class="col-lg-4 col-md-4 col-xs-12">
+						<aside class="widget clearfix">
+							<div class="body"><h4 class="widget-title">Onsale Products</h4>
+								<ul class="product_list_widget">
+
+									{% if On_Sale %}
+									{% for onsale in On_Sale %}
+										<li>
+											<a href="{% url 'shop-detail' pk=onsale.id %}" title="Tablet Thin EliteBook  Revolve 810 G6">
+												<img class="wp-post-image"  src="{{ onsale.image.url }}" alt="">
+												<span class="product-title">{{ onsale.name }}</span>
+											</a>
+											<span class="electro-price"><span class="amount">&#36;1,300.00</span></span>
+										</li>
+									{% endfor %}
+									{% else %}
+										<p>no Onsale</p>
+									{% endif %}
+								</ul>
+							</div>
+						</aside>
+					</div>
+					<div class="col-lg-4 col-md-4 col-xs-12">
+						<aside class="widget clearfix">
+							<div class="body">
+								<h4 class="widget-title">Top Rated Products</h4>
+								<ul class="product_list_widget">
+
+									{% if Best_Rated %}
+									{% for toprated in Best_Rated %}
+										<li>
+											<a href="{% url 'shop-detail' pk=toprated.id %}" title="Tablet Thin EliteBook  Revolve 810 G6">
+												<img class="wp-post-image"  src="{{ toprated.image.url }}" alt="">
+												<span class="product-title">{{ toprated.name }}</span>
+											</a>
+											<span class="electro-price"><span class="amount">&#36;{{ toprated.price }}</span></span>
+										</li>
+									{% endfor %}
+									{% else %}
+										<p>no Toprated</p>
+									{% endif %}
+
+								</ul>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% if user.is_authenticated %}
+	
+		{% else %}
+		<div class="footer-newsletter">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-7">
+						<h5 class="newsletter-title">Sign up to Newsletter</h5>
+						<span class="newsletter-marketing-text">...and receive <strong>$20 coupon for first shopping</strong></span>
+					</div>
+					<div class="col-xs-12 col-sm-5">
+						<form>
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Enter your email address">
+								<span class="input-group-btn">
+									<button class="btn btn-secondary" type="button">Sign Up</button>
+								</span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<div class="footer-bottom-widgets">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-7 col-md-push-5">
+						<div class="columns">
+							<aside id="nav_menu-2" class="widget clearfix widget_nav_menu">
+								<div class="body">
+									<h4 class="widget-title">Find It Fast</h4>
+									<div class="menu-footer-menu-1-container">
+										<ul id="menu-footer-menu-1" class="menu">
+											{% for cat in categories  %}
+											<li class="menu-item"><a href="single-product.html">{{ cat.title }}</a></li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</aside>
+						</div><!-- /.columns -->
+
+						<div class="columns">
+							<aside id="nav_menu-3" class="widget clearfix widget_nav_menu">
+								<div class="body">
+									<h4 class="widget-title">&nbsp;</h4>
+								</div>
+							</aside>
+						</div><!-- /.columns -->
+
+						<div class="columns">
+							<aside id="nav_menu-4" class="widget clearfix widget_nav_menu">
+								<div class="body">
+									<h4 class="widget-title">Customer Care</h4>
+									<div class="menu-footer-menu-3-container">
+										<ul id="menu-footer-menu-3" class="menu">
+											<li class="menu-item"><a href="{% url 'my_account' %}">My Account</a></li>
+											<li class="menu-item"><a href="{% url 'order_tracking' %}">Track your Order</a></li>
+											<li class="menu-item"><a href="{% url 'wishlist:wishlist' %}">Wishlist</a></li>
+											<li class="menu-item"><a href="{% url 'article:returns_exchange' %}">Returns/Exchange</a></li>
+											<li class="menu-item"><a href="{% url 'faqs' %}">FAQs</a></li>
+										</ul>
+									</div>
+								</div>
+							</aside>
+						</div><!-- /.columns -->
+
+					</div><!-- /.col -->
+
+					<div class="footer-contact col-xs-12 col-sm-12 col-md-5 col-md-pull-7">
+						<div class="footer-logo">
+							<!-- logo -->
+							<img src="{% static 'logo/logo.png' %}" alt="">
+						</div><!-- /.footer-contact -->
+
+						<div class="footer-call-us">
+							<div class="media">
+								<div class="media-body">
+									<span class="call-us-text">Got Questions ? Call us 24/7!</span>
+									<span class="call-us-number">(800) 8001-8588, (0600) 874 548</span>
+								</div>
+							</div>
+						</div><!-- /.footer-call-us -->
+
+
+						<div class="footer-address">
+							<strong class="footer-address-title">Contact Info</strong>
+							<address>17 Princess Road, London, Greater London NW1 8JR, UK</address>
+						</div><!-- /.footer-address -->
+
+						<div class="footer-social-icons">
+							<ul class="social-icons list-unstyled">
+								<li><a href=""><img style="display: inline-block;" height="20" width="20" src="{% static 'png/facebook.png' %}"></a></li>
+								<li><a class="" href="#"></a><img style="display: inline-block;" height="20" width="20" src="{% static 'png/instagram-sketched.png' %}"></li>
+								</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="copyright-bar">
+			<div class="container">
+				<div class="pull-left flip copyright">&copy; <a href="http://demo2.transvelo.in/html/electro/">Electro</a> - All Rights Reserved</div>
+				<div class="pull-right flip payment">
+					<div class="footer-payment-logo">
+						<ul class="cash-card card-inline">
+							<li class="card-item"><img src="{% static 'image/2.png' %}" alt="" width="52"></li>
+							<li class="card-item"><img src="{% static 'image/3.png' %}" alt="" width="52"></li>
+							<li class="card-item"><img src="{% static 'image/4.png' %}" alt="" width="52"></li>
+							<li class="card-item"><img src="{% static 'image/5.png' %}" alt="" width="52"></li>
+						</ul>
+					</div><!-- /.payment-methods -->
+				</div>
+			</div><!-- /.container -->
+		</div><!-- /.copyright-bar -->
+	</footer><!-- #colophon -->
+</div>
+
+<script>
+	window.onscroll = function() {myFunction()};
+	
+	var navbar = document.getElementById("navbar");
+	var sticky = navbar.offsetTop;
+	
+	function myFunction() {
+	  if (window.pageYOffset >= sticky) {
+		navbar.classList.add("sticky")
+	  } else {
+		navbar.classList.remove("sticky");
+	  }
+	}
+</script>
+
+
+
+<!-- index.js -->
+
+<script type="text/javascript" src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/tether.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/bootstrap-hover-dropdown.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/echo.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/wow.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/jquery.easing.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/jquery.waypoints.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/electro.js' %}"></script>
+
+<!-- For demo purposes – can be removed on production -->
+
+<script src="{% static 'switchstylesheet/switchstylesheet.js' %}"></script>
+
+</body>
+</html>

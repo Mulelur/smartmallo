@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div id="content" class="site-content" tabindex="-1">
+    <div class="container">
+
+        <nav class="woocommerce-breadcrumb" ><a href="{% url 'home' %}">Home</a><span class="delimiter"><span><img class="tondy-img" height="5" width="10" src="{% static 'png/next (3).png' %}"></span><a href="{% url 'my_account' %}">My Account</a><span class="delimiter"><span><img class="tondy-img" height="5" width="10" src="{% static 'png/next (3).png' %}"></span>Profile</nav><!-- .woocommerce-breadcrumb -->
+
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <article id="post-8" class="hentry">
+
+                    <div class="entry-content">
+                        <div class="woocommerce">
+                            <div class="customer-login-form">
+                                <span class="or-text">or</span>
+
+                                <div class="col2-set" id="customer_login">
+
+                                    <div class="col-1">
+
+
+                                        <h2>Update Profile</h2>
+
+                                        <form method="post" class="login">
+
+                                            {% csrf_token %}  
+                    
+  
+                                                {{ editform|crispy }}
+                                              
+
+                                                    <div class="py-2">
+                                                        <button class="btn btn-outline-info">
+                                                            save
+                                                        </button>
+                                                    </div>
+                                        </form>
+
+
+                                    </div><!-- .col-1 -->
+
+                                    <div class="col-2">
+
+                                        <h2>Change Password</h2>
+
+                                        <form method="post" class="register">
+                                            {% csrf_token %}  
+
+                                            
+
+                                            {{ passwordform|crispy }} 
+
+
+                                            <div style="margin-top: 49px;" class="pt-5">
+                                                <button class="btn btn-outline-info">
+                                                    save
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    </div><!-- .col-2 -->
+
+                                </div><!-- .col2-set -->
+
+                            </div><!-- /.customer-login-form -->
+                        </div><!-- .woocommerce -->
+                    </div><!-- .entry-content -->
+
+                </article><!-- #post-## -->
+
+            </main><!-- #main -->
+        </div><!-- #primary -->
+
+    </div><!-- .col-full -->
+</div><!-- #content -->
+
+{% endblock %}
+

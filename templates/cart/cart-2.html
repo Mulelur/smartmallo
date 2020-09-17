@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<!-- cart.css -->
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/cart_responsive.css' %}">
+	<!-- Cart -->
+
+<div class="cart_section">
+	<div class="container">
+		<div class="row">
+			<div class="card" style="width: 18rem;">
+				<img src="..." class="card-img-top" alt="...">
+				<div class="card-body">
+				  <h5 class="card-title">Card title</h5>
+				  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				</div>
+				<ul class="list-group list-group-flush">
+				  <li class="list-group-item">Cras justo odio</li>
+				</ul>
+				<div class="card-body">
+				  <a href="#" class="card-link">Card link</a>
+				  <a href="#" class="card-link">Another link</a>
+				</div>
+			  </div>
+			  {% for item in order.get_cart_items %}	
+			  <div class="card mb-3" style="max-width: 100%;">
+				<div class="row no-gutters">
+				  <div class="col-md-1">
+					<img src="{{ item.product.image.url }}" class="card-img" alt="...">
+				  </div>
+				  <div class="col-md-2">
+					<div class="card-body">
+					  <h5 class="card-title">{{ item.product.name }}</h5>
+					  <p class="card-text"></p>
+					  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					</div>
+				  </div>
+				  <div class="col-md-12">
+					<a href="#" class="card-link">Card link</a>
+				  <a href="#" class="card-link">Another link</a>
+				  </div>
+				</div>
+			  </div>
+			  {% endfor %}
+			  <!--  -->
+			  <tr>
+				<th scope="row"><div class="cart_item_text">{{ forloop.counter }}</div></th>
+				<td><div class="cart_item_image"><img src="" alt=""></div></td>
+				<td><div class="cart_item_text"></div></td>
+				<td><div class="cart_item_text">{{ item.product.color }}</div></td>
+				<td><div class="cart_item_text">{{ item.product.price}}</div></td>
+			</tr>
+			
+				<tr>
+				<td colspan= 3> You have not added any items yet.</td>
+				</tr>
+		
+			  <!--  -->
+		</div>		
+	</div>
+</div>	
+<!-- cart -->
+<script src="{% static 'js/cart_custom.js' %}"></script>
+
+ {% endblock %}
+ {% block scripts %}
+  {{ block.super }}
+  <script>
+  function confirm_delete(){
+    return confirm("Do you want to remove this item from cart?");
+  }
+  </script>
+{% endblock scripts %}
+

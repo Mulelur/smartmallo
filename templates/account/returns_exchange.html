@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Single Blog Post -->
+
+<div class="single_post m-0 p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 p-0 m-0">
+                <div class="single_post_title">{{ sub_category.title }}</div>
+                {% if article %}   
+                    {% for y in article %}
+                        <div class="mt-3">
+                            <a href="{% url 'article:article_detail' category_slug=y.category.slug sub_category_slug=y.sub_category.slug article_slug=y.slug %}"><p class="border-bottom">{{ y.title }}</p></a>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>no good</h2>
+                {% endif %}
+            </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

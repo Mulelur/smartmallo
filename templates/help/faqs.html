@@ -1,0 +1,45 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block content %}
+
+<div id="content" class="site-content" tabindex="-1">
+  <div class="container">
+      <nav class="woocommerce-breadcrumb"><a href="{% url  'home' %}">Home</a><span class="delimiter"><img style="display: inline-block;margin-right: 7px;" height="5" width="10" src="{% static 'png/next (3).png' %}"></span><a href="{% url 'help' %}">Help</a><span class="delimiter"><img style="display: inline-block;margin-right: 7px;" height="5" width="10" src="{% static 'png/next (3).png' %}"></span>Faq's</nav>
+
+      <div id="primary" class="content-area">
+          <main id="main" class="site-main">
+              <article class="page type-page status-publish hentry" >
+
+                  <header class="entry-header">
+                      <h1 itemprop="name" class="entry-title">Frequently Asked Questions</h1>
+                      <p class="entry-subtitle">This Agreement was last modified on 18th february 2016</p>
+                  </header><!-- .entry-header -->
+
+                  <div itemprop="mainContentOfPage" class="entry-content">
+                    {% if article %} 
+                    {% for a in article %}
+                      <div id="accordion" role="tablist" aria-multiselectable="true">
+                          <div class="vc_toggle panel panel-default">
+                              <div class="panel-heading" role="tab" id="headingOne">
+                                  <div class="vc_toggle_title">
+                                      <h4 class="panel-title">
+                                          <a data-toggle="collapse" style="color: #434343;" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">What Shipping Methods Are Available?</a>
+                                      </h4>
+                                      <i class="vc_toggle_icon"></i>
+                                  </div>
+                              </div>
+                              <div id="collapseOne" class="vc_toggle_content panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <p>{{ article.text | safe }}</p> </div>
+                          </div>
+                      {% endfor %}
+                      </div>
+                      {% else %}
+                      <h2>Questions</h2>
+                  {% endif %}
+                  </div><!-- .entry-content -->
+              </article>
+          </main><!-- #main -->
+      </div><!-- #primary -->
+  </div><!-- .container -->
+</div><!-- #content --
+{% endblock %}

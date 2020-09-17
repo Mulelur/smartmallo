@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div style="margin-top: 50px;" class="single_post">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 ">
+                <h3>Account</h3>
+                <ul class="tondy-ul-li">
+                    <li><span><img class="tondy-img" height="16" width="16" src="{% static 'png/product.png' %}"></span><a class="tondy-a-color" href="{% url 'my_account' %}">Purchase History</a></li>
+                    <li><a class="tondy-a-color" href="{% url 'edit_profile' %}"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/password.png' %}"></span>Profile & Password</a></li>
+                    <li><a class="tondy-a-color" href="{% url 'delivery' %}"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/box.png' %}"></span>Delivery Addresses</a></li>
+                </ul>
+                <hr>
+                <h3>Customer Service</h3>
+                <ul class="tondy-ul-li">
+                    <li><a class="tondy-a-color"  href="{% url 'article:article_detail' category_slug='other' sub_category_slug='policies-terms-and-conditions' article_slug='terms-use' %}"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/info (1).png' %}"></span>Terms of use</a></li>
+                    <li><a class="tondy-a-color"  href="{% url 'contact' %}"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/comment.png' %}"></span>Contact Us</a></li>
+                    <li><a class="tondy-a-color"  href="{% url 'help' %}"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/question (1).png' %}"></span>Help</a></li>
+                    <li><a class="tondy-a-color"  href="{% url 'logout' %}"><span><img class="tondy-img" height="16" width="16" src="{% static 'png/logout (2).png' %}"></span>Sign Out</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-8 offset-lg-2  pl-4 pt-4 p-0 m-0 bg-white">
+                <div class="shadow-sm">
+                    <h2>Purchase History</h2>
+                        <form action="#">
+                            <input type="search" name="q" placeholder="search..." style="margin-left: 30px;">
+                            
+                        </form>
+                        <h3 id="order_review_heading" style="margin-top: 31px;">Your order</h3>
+                        <div class="woocommerce-checkout-review-order" id="order_review">
+                            <table class="shop_table woocommerce-checkout-review-order-table">
+                                <tr class="text-center">
+                                <th>Date Ordered</th>
+                                <th>Reference Code</th>
+                                <th>Items</th>
+                                <th>Price</th>
+                                </tr>
+                                {% for order in my_orders %}
+                                <tr>
+                                    <td>{{ order.date_ordered }}</td>
+                                    <td>{{ order.ref_code }}</td>
+                                    <td>
+                                    {% for item in order.items.all %}
+                                        {{ item.product.name }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>${{ order.get_cart_total }}</td>
+                        
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan= 4> You have no orders.</td>
+                                </tr>
+                                {% endfor %}
+        
+                            </table>
+                        </div>
+                        {% if not order %}
+                            <div> 
+                                <a  style="margin-bottom: 50px;"  href="{% url 'shop-list' %}" class="btn btn-warning pull-left">
+                                    Continue Shopping
+                                </a>
+                            </div>
+                        {% else %}
+                            <p>You haven’t placed any orders in the last 6 months.
+                                Looking for other orders? Try filtering by another time frame.</p>
+                            <div>Ready to place an order?
+                                <button class='btn btn-primary'>start shoping</button>
+                            </div> 
+                        {% endif %}
+                       
+                </div>    
+            </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

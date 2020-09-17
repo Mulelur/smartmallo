@@ -1,0 +1,18 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block branding %}
+    <h1 id="head">
+        <img src="{% static 'logo/logo.png' %}" alt="Smartmallo" height="50" width="150" class="brand_img">
+    </h1>
+{% endblock %}
+
+{% block head %}
+<link rel="shortcut icon" href="{% static 'image/fvraicon-removebg-preview.png' %}">
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{%  static 'css/admin.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/colors/yellow.css' %}" media="all" />
+
+{% endblock %}

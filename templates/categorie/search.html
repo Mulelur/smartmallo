@@ -1,0 +1,47 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+                              <!-- l -->
+        {% if p_cat %}
+        <div class="shop_page_nav d-flex flex-row">
+        {% if page_obj.has_previous %}
+        <ul class="page_nav d-flex flex-row">
+        {% if page_obj.number > 2 %}
+            <li><a href="?page=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a> </li>
+            <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-chevron-left"></i></a></li>
+        {% else %}
+            <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-chevron-left"></i></a></li>
+        {% endif %}    
+        </ul>
+        {% endif %}
+        
+        <ul class="page_nav d-flex flex-row">
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li><a  href="?page={{ num }}">{{ num }}</a></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li><a  href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.number == 1 %}
+            <li><a href="#">of</a></li>
+        {% else %}
+            <li><a href="#">...</a></li>
+        {% endif %}
+            <li><a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+        </ul>
+        {% if page_obj.has_next %}
+        <ul class="page_nav d-flex flex-row">
+        <li><a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-chevron-right"></i></a></li> 
+        <li> <a href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+    </ul>
+        {% endif %}
+        
+    </div>
+    {% else %}
+    {% endif %}
+
+{% endblock %}

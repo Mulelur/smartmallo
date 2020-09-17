@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{%load static %}
+{% block content %}
+<div id="content" class="site-content" tabindex="-1">
+    <div class="container">
+
+        <nav class="woocommerce-breadcrumb" ><a href="{% url 'home' %}">Home</a><span class="delimiter"><span class="delimiter"><span><img style="display: inline-block;margin-right: 7px;" height="5" width="10" src="{% static 'png/next (3).png' %}"></span></span>Laptops &amp; Computers</nav>
+
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <section>
+                    <header>
+                        <h2 class="h1">Laptops &amp; Computers Categories</h2>
+                    </header>
+                    <div class="woocommerce columns-4">
+                        <ul class="product-loop-categories">
+                            {% for c in category %}
+                            <li class="product-category product first"><a href="cat-3-col.html"><img src="{{ c.image.url }}" alt="Accessories" width="250" height="232" /><h3>{{ c.title }}<mark class="count">(2)</mark></h3></a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section-product-cards-carousel" >
+                    <header>
+                        <h2 class="h1">People buying in this category</h2>
+                        <div class="owl-nav">
+                            <a href="#products-carousel-prev" data-target="#recently-added-products-carousel" class="slider-prev"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/back.png' %}"></span></a>
+                            <a href="#products-carousel-next" data-target="#recently-added-products-carousel" class="slider-next"><span><img style="display: inline-block;" height="16" width="17" src="{% static 'png/next (3).png' %}"></span></a>
+                        </div>
+                    </header>
+
+                    <div id="recently-added-products-carousel">
+                        <div class="woocommerce columns-6">
+                            <div class="products owl-carousel recently-added-products products-carousel columns-6">
+
+                                {% for a in something_else %}
+                                <div class="product">
+                                    <div class="product-outer">
+                                        <div class="product-inner">
+                                            <span class="loop-product-categories"><a href="{% url 'shop-detail' pk=a.id %}" rel="tag">{{ a.category }}</a></span>
+                                            <a href="{% url 'shop-detail' pk=a.id %}">
+                                                <h3>{{ a.name }}</h3>
+                                                <div class="product-thumbnail">
+                                                    <img src="{{ a.image.url }}" class="img-responsive" alt="">
+                                                </div>
+                                            </a>
+
+                                            <div class="price-add-to-cart">
+                                                <span class="price">
+                                                    <span class="electro-price">
+                                                        <ins><span class="amount"> </span></ins>
+                                                        <span class="amount"> ${{ a.price }}</span>
+                                                    </span>
+                                                </span>
+                                                <!-- add to cart -->
+                                            </div><!-- /.price-add-to-cart -->
+
+                                            <div class="hover-area">
+                                                <div class="action-buttons">
+
+                                                    <a href="#" rel="nofollow"> Wishlist</a>
+
+                                                    <a href="compare.html" class=""> Compare</a>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.product-inner -->
+                                    </div><!-- /.product-outer -->
+                                </div><!-- /.products -->
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main><!-- #main -->
+        </div><!-- #primary -->
+    </div><!-- .container -->
+</div><!-- #content -->
+{% endblock %}

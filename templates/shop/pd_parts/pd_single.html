@@ -1,0 +1,135 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="single-product-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="single-product-wrapper" style="margin-bottom: 50px;">
+                    <div id="content-wrapper">
+                        
+                        <div class="column">
+                            <img id="featured-1"class="tondy-container" src="{{ product.image.url }}">
+
+                            <div id="slide-wrapper">
+                                <div id="slider">
+                                    {% for imgs in img %}
+                                    <img class="thumbnail" src="{{ imgs.image.url }}">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 ">
+                <div>
+                    <span class="tondy-category">
+                        <a href="{% url 'category:product-category' %}">{{ product.category.title }}</a>
+                        <h3>{{ product.name }}</h3>
+                    </span><!-- /.loop-product-categories -->
+                    
+                    
+                    {% if reviews %}
+                    <div class="woocommerce-product-rating">
+                        <span><img style="display: inline-block;margin-top: 10px;" height="16" width="17" src="{% static 'png/star.png' %}" ></span>
+                        <span><img style="display: inline-block;margin-top: 10px;" height="16" width="17" src="{% static 'png/star.png' %}" ></span>
+                        <span><img style="display: inline-block;margin-top: 10px;" height="16" width="17" src="{% static 'png/star.png' %}" ></span>
+                        <span><img style="display: inline-block;margin-top: 10px;" height="16" width="17" src="{% static 'png/star.png' %}" ></span>
+                        <span><img style="display: inline-block;margin-top: 10px;" height="16" width="17" src="{% static 'png/star.png' %}" ></span>
+                                                                    
+                        <div title="Rated 4.33 out of 5">
+                            <span style="width:86.6%">
+                                <strong itemprop="ratingValue" class="rating">4.33</strong>
+                                out of <span itemprop="bestRating">5</span>based on
+                                <span itemprop="ratingCount" class="rating">{{ reviews.count }}</span>
+                                customer ratings
+                            </span>
+                        </div>
+                        {% endif %}
+                        {% if reviews %}<a href="#reviews" class="woocommerce-review-link">(<span itemprop="reviewCount" class="count">{{ reviews.count }}</span> customer reviews)</a>{% endif %}
+                           
+                        </div><!-- .woocommerce-product-rating -->
+
+                        <div class="availability in-stock">Availablity: <span>{{ product.availability }}</span></div><!-- .availability -->
+
+                        <hr class="single-product-title-divider" />
+
+                        <div class="action-buttons">
+                            
+                            <a href="{% url 'wishlist:add_to_wishlist' product.id %}">Wishlist</a>
+
+                        </div><!-- .action-buttons -->
+
+                        <div itemprop="description">
+                            <p>{{ product.description }}</p>
+                            <p><strong>SKU</strong>: FW511948218</p>
+                        </div><!-- .description -->
+                        <div>
+
+                            <p class="price"><span class="electro-price"><ins><span class="amount">&#36;{{ product.price }}</span></ins> <del>{% if product.price.compre_to %}<span class="amount">&#36;{{ product.price.compre_to }}</span>{% endif %}</del></span></p>
+            
+                        </div><!-- /itemprop -->
+                        <!-- Form -->
+                        <div class="mb-5 pb-5">
+                            <form action="." class="variations_form cart" method="post">
+                                {% csrf_token %}
+                           
+                                    <div class="single_variation_wrap">
+                                        <div class="quantity">
+                                            {{ form|crispy }}
+                                        </div>
+                                        {% if object in current_order_products %}
+                                         <div class="tondy-list-button">
+                                            <a href="{% url 'order_summary' %}" class="btn btn-outline-primary py-2">Go to Cart</a>
+                                        {% else %}
+                                        <a href="{% url 'add_to_cart' product.id %}" style="margin-bottom: 20px;align-items: center;" class="button"><span><img class="tondy-img" height="16" width="17" src="{% static 'png/buy.png' %}"></span>Add to cart</a> 
+                                        <!-- <button style="margin-top: 20px;" type="submit" class="button">Add to cart</button> -->
+                                        <a href="{% url 'wishlist:add_to_wishlist' product.id %}" class="button"><span><img class="tondy-img" height="16" width="17" src="{% static 'png/heart (3).png' %}"></span>Add to Wishlist</a> 
+                                        
+                                        {% endif %}
+                                         </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> 
+            </div>  
+    </div> 
+</div>
+
+
+<script type="text/javascript">
+    let thumbnails = document.getElementsByClassName('thumbnail')
+    let activeImages = document.getElementsByClassName('active')
+    for (var i=0; i < thumbnails.length; i++){
+        thumbnails[i].addEventListener('mouseover', function(){
+
+            if (activeImages.length > 0){
+                activeImages[0].classList.remove('active')
+            }
+        
+            this.classList.add('active')
+            document.getElementById('featured-1').src = this.src
+        })
+
+
+    }
+
+    const buttonRight = document.getElementById('slideRight');
+    const buttonLeft = document.getElementById('slideLeft');
+
+
+    buttonRight.addEventListener('click', function(){
+        document.getElementById('slider').scrollLeft += 180;
+    })
+
+
+
+    buttonLeft.addEventListener('click', function(){
+      document.getElementById('slider').scrollLeft -= 180;
+    })
+
+</script>
+
+

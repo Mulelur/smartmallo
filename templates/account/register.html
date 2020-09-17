@@ -1,0 +1,49 @@
+{% extends 'base_2.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4 pt-4">
+    <div class="row justify-content-center">
+        <div class="col col-md-4  col-sm-4">
+            <div class="card pb-3 mb-3">
+                <div class="card-body">
+                    <div class="border-top"> 
+                        <form  method="POST">
+                            {% csrf_token %}  
+                    
+                                <fieldset>
+                                    <legend class="text-center">Create account</legend>
+
+                                    {{ form|crispy }}
+                                </fieldset>
+                                <div class="flex-sb-m w-full p-b-30">
+                                <div class="contact100-form-checkbox">
+                                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                                    <label class="label-checkbox100" for="ckb1">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                    
+                            <div class="py-2">
+                                <button class="btn btn-outline-info">
+                                    Create your OneTech account
+                                </button>
+                            </div>
+                            <div>
+                                <small>By creating an account, you agree to OneTech's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice.</a></small>
+                            </div>
+                        </form>
+                        <div class="pt-2" >
+                            <small class="text-muted">
+                                Already Have An Account? <a href="{% url 'login' %}" class="ml-2">Sign In</a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}
